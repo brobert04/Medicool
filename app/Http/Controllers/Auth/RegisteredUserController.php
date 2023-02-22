@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('medicool.backend.common_pages.register');
     }
 
     /**
@@ -34,14 +34,29 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'documents' => ['required'],
+            'documents.*' => ['mimes:pdf,doc,docx,jpg,jpeg,png'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        // ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
 
+        if ($request->hasfile('documents')){
+            foreach($request->file('documents') as $file){
+                $name = $file->getClientOriginalName();
+                $file->move(public_path().'/documents/', $name);
+                $data[] = $name;
+            }
+            $user->documents = json_encode($data);
+        };
+    
         event(new Registered($user));
 
         Auth::login($user);

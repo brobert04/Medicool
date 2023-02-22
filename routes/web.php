@@ -28,4 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('guest')->group(function(){
+    Route::get('/register', [App\Http\Controllers\medicool\backend\doctors\RegistrationController::class, 'index'])->name('doctor.register');
+    Route::post('/register', [App\Http\Controllers\medicool\backend\doctors\RegistrationController::class, 'store'])->name('doctor.register.store');
+});
+
 require __DIR__.'/auth.php';

@@ -9,8 +9,8 @@
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-        <i class="bi bi-phone"></i> +1 5589 55488 55
+        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">medicool@gmail.com</a>
+        <i class="bi bi-phone"></i> +40 733 162 131
       </div>
       <div class="d-none d-lg-flex social-links align-items-center">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -28,7 +28,7 @@
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
         <h1>Welcome to Medicool</h1>
-        <h2>We are team of talented designers making websites with Bootstrap</h2>
+        <h2>We are team of talented doctors making people live their best lives</h2>
         <a href="#about" class="btn-get-started scrollto">Get Started</a>
         </div>
     </section><!-- End Hero -->
