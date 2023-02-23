@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,6 @@ Route::get('/', function () {
     return view('medicool.frontend.pages.index');
 })->name('index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,9 +27,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// RUTELE PENTRU INREGSITRARE ALE MEDICULUI
 Route::middleware('guest')->group(function(){
     Route::get('/register', [App\Http\Controllers\medicool\backend\doctors\RegistrationController::class, 'index'])->name('doctor.register');
     Route::post('/register', [App\Http\Controllers\medicool\backend\doctors\RegistrationController::class, 'store'])->name('doctor.register.store');
+});
+
+Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'verified']], function(){
+    Route::get('/dashboard', [DoctorController::class, 'dashboard'])->name('doctor.dashboard');
+    Route::get('/send-invitation', [\App\Http\Controllers\medicool\backend\patients\RegisterController::class, 'index'])->name('doctor.send.invitation');
+    Route::post('/send-invitation', [\App\Http\Controllers\medicool\backend\patients\RegisterController::class, 'store'])->name('doctor.send.invitation.store');
 });
 
 require __DIR__.'/auth.php';

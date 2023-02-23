@@ -4,7 +4,9 @@ namespace App\Http\Controllers\medicool\backend\doctors;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -30,7 +32,8 @@ class RegistrationController extends Controller
             $user->documents = json_encode($data);
         };
         $user->save();
-        auth()->login($user);
-        return redirect()->route('dashboard');
+        event(new Registered($user));
+        Auth::login($user);
+        return redirect()->route('doctor.dashboard');
     }
 }

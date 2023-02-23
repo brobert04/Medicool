@@ -32,7 +32,12 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-      <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a>
-
+      @if(Route::has('login'))
+        @auth
+          <a href="{{ route('doctor.dashboard') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Dashboard</a>
+        @else
+          <a href="{{ route('login') }}" class="appointment-btn scrollto"><span class="d-none d-md-inline">Login</a>
+        @endauth
+      @endif
     </div>
   </header>

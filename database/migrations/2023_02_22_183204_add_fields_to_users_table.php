@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('documents')->nullable();
+            $table->string('role')->default('doctor')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('city')->nullable();
             $table->string('schedule')->nullable();
             $table->string('gender')->nullable();
-            $table->string('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('avatar')->nullable();   
             $table->string('description')->nullable();
         });
@@ -30,7 +30,15 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('documents');
+            $table->dropColumn('role');
+            $table->dropColumn('phone');
+            $table->dropColumn('address');
+            $table->dropColumn('schedule');
+            $table->dropColumn('gender');
+            $table->dropColumn('birthday');
+            $table->dropColumn('avatar');
+            $table->dropColumn('description');
         });
     }
 };
